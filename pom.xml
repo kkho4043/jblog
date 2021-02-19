@@ -94,7 +94,6 @@
 
 	</dependencies>
 
-
 	<build>
 		<plugins>
 			<plugin>

@@ -3,11 +3,13 @@
 
 <configuration>
 	<typeAliases>
+		<typeAlias alias="BlogVo" type="com.javaex.vo.BlogVo" />
 		<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
+		
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="mybatis/mappers/blog.xml" />
 		<mapper resource="mybatis/mappers/user.xml" />
-
 	</mappers>
 </configuration>

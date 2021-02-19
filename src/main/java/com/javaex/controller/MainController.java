@@ -10,7 +10,6 @@ public class MainController {
 	
 	//@Autowired
 	//private GalleryService galleryService;
-
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String main(Model model) {
 		System.out.println("/jblog/main-----------------");

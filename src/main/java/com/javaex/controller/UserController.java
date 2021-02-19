@@ -43,7 +43,6 @@ public class UserController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/joinForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String joinForm() {
 		System.out.println("/UserController/joinForm-----------------");
@@ -57,8 +56,6 @@ public class UserController {
 		
 		userService.join(userVo);
 			
-		
-		
 		return "user/joinSuccess";
 		
 	}

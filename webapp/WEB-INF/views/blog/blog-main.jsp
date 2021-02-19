@@ -22,12 +22,12 @@
 				<div id="profile">
 					
 					<!-- 기본이미지 -->
-					<img id="proImg" src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+					<img id="proImg" src="org.eclipse.wst.server.core\tmp0\wtpwebapps\jblog\upload\"${blogVo.logoFile}>
 					
 					<!-- 사용자업로드 이미지 -->
 					<%-- <img id="proImg" src=""> --%>
 					
-					<div id="nick">정우성(hijava)님</div>
+					<div id="nick">${blogVo.id}님</div>
 				</div>
 				<div id="cate">
 					<div class="text-left">
