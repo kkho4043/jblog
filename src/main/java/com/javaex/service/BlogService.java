@@ -48,31 +48,37 @@ public class BlogService {
 		if (userVo == null || !(id.equals(userVo.getId()))  || id == null) {
 			return 0;
 		} else {
-			// 오리지널 파일이름
-			String orgName = file.getOriginalFilename();
-			// 확장
-			String exName = orgName.substring(orgName.lastIndexOf("."));
-			// 서버저장용 이름(서버컴퓨터.)
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-			// 저장위치
-			String saveDir = "C:\\javaStudy\\upload";
-			
-			// 저장경로
-			String filePath = saveDir + "\\" + saveName;
-			System.out.println("filePath");
-			System.out.println(saveDir);
-			// 저장경로에 저장하기
-			try {
-				byte[] fileDate = file.getBytes();
-				OutputStream out = new FileOutputStream(filePath);
-				BufferedOutputStream bos = new BufferedOutputStream(out);
+			String saveName = "";
+			if(file.getSize() > 0) {
+				// 오리지널 파일이름
+				String orgName = file.getOriginalFilename();
+				// 확장
+				String exName = orgName.substring(orgName.lastIndexOf("."));
+				// 서버저장용 이름(서버컴퓨터.)
+				saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+				// 저장위치
+				String saveDir = "C:\\javaStudy\\upload";
+				
+				// 저장경로
+				String filePath = saveDir + "\\" + saveName;
+				System.out.println("filePath");
+				System.out.println(saveDir);
+				// 저장경로에 저장하기
+				try {
+					byte[] fileDate = file.getBytes();
+					OutputStream out = new FileOutputStream(filePath);
+					BufferedOutputStream bos = new BufferedOutputStream(out);
 
-				bos.write(fileDate);
-				bos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					bos.write(fileDate);
+					bos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			
+			
+			
 			BlogVo blogvo = new BlogVo(userVo.getId(),blogTitle,saveName);
 				
 			return blogDao.UpdateBasicBlog(blogvo);

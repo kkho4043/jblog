@@ -53,8 +53,8 @@ public class BlogController {
 	//블로그 기본 설정
 	@RequestMapping(value = "{id}/admin/basicModify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String blogAdminbasicModify(@PathVariable("id") String id,HttpSession session,
-									   @RequestParam("blogTitle") String blogTitle, 
-									   @RequestParam("file") MultipartFile file,
+									   @RequestParam(value = "blogTitle") String blogTitle, 
+									   @RequestParam(value = "file",required = false) MultipartFile file,
 									   HttpServletRequest request,
 					                   RedirectAttributes redirectAttributes) {
 		System.out.println("/blogController/" + id + "/basicmodifi-----------------");

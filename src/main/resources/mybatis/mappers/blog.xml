@@ -23,14 +23,21 @@
 			where id = #{id}
 		]]>
 	</select>
-	
+
 	<update id="updateblog" parameterType="BlogVo">
 		<![CDATA[
 			update blog
-			set blogTitle = #{blogTitle}, 
-    			logoFile = #{logoFile}
+			set blogTitle = #{blogTitle}
+		]]>
+
+
+		<if test="logoFile != null and logoFile != ''">
+			,logoFile = #{logoFile}
+		</if>
+		    
+		<![CDATA[
 			where id = #{id}
 		]]>
-	
+
 	</update>
 </mapper>
