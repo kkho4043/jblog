@@ -37,7 +37,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
-			      			<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}" ></td> 
+			      			<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"> </td> 
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>

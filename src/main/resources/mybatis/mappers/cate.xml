@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cate">
+	<!-- 유저 등록시 블로그 등록 -->
+	<insert id="insertcate" parameterType="CateVo">
+		<![CDATA[
+			insert into category
+			VALUES (
+					seq_category_no.nextval,
+					#{id},
+	        		#{cateName},
+	        		#{description},
+	        		sysdate
+	        		)
+		]]>
+	</insert>
+	
+	<select id="selectListcate" resultType="CateVo" parameterType="String">
+		<![CDATA[
+			select 
+	    		c.cateno,
+	    		c.catename,
+			    p.count amount,
+			    c.description
+    
+			from category c ,(select
+                        		cateNo,
+                        		count(postno) count
+                  				from post
+                  				GROUP by cateNo)p
+			where c.cateno = p.cateno(+)
+			and c.id = #{id}
+			order by c.regdate desc
+		]]>
+	
+	</select>
+	
+	<!--마지막그-->
+	<select id="selectcatelast" resultType="CateVo" parameterType="String">
+		<![CDATA[
+			select
+			    cateno,
+			    catename,
+			    description
+			from category,(select
+			                	MAX(regDate) max
+			                from category
+			                where id = #{id}
+			                )cate
+			where category.regdate = cate.max
+		]]>
+	</select>
+	
+	<delete id="catedelete" parameterType="int">
+			<![CDATA[
+			delete
+			from category
+			where (select
+			       count(postno)
+			       from post
+      		where cateno = #{no}
+			) = 0
+			and cateno = #{no}
+		]]>
+	</delete>
+</mapper>
