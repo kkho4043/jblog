@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BlogMainDao;
-import com.javaex.dao.BlogWriteDao;
+import com.javaex.dao.BlogPostDao;
 import com.javaex.dao.BlogCateDao;
 import com.javaex.vo.PostVo;
 import com.javaex.vo.UserVo;
 
 @Service("/BlogWriteService")
-public class BlogWriteService {
+public class BlogPostService {
 
 	@Autowired
 	BlogMainDao blogMainDao;
@@ -24,9 +24,9 @@ public class BlogWriteService {
 	BlogCateDao blogCateDao;
 
 	@Autowired
-	BlogWriteDao blogWriteDao;
+	BlogPostDao blogPostDao;
 
-	public Map<String, Object> blogwrite(String id, HttpSession session) {
+	public Map<String, Object> blogPost(String id, HttpSession session) {
 
 		if (equlsIdSession(id, session)) {
 			Map<String, Object> bMap = new HashMap<String, Object>();
@@ -37,10 +37,10 @@ public class BlogWriteService {
 		return null;
 	}
 
-	public int blogwriteinsert(String id, HttpSession session, int cateNo, PostVo postVo) {
+	public int blogPostinsert(String id, HttpSession session, int cateNo, PostVo postVo) {
 		if (equlsIdSession(id, session)) {
 			postVo.setCateNo(cateNo);
-			return blogWriteDao.blogwriteinsert(postVo);
+			return blogPostDao.blogwriteinsert(postVo);
 		}
 		return 0;
 	}

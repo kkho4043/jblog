@@ -16,11 +16,13 @@
 	<select id="selectblog" resultType="BlogVo" parameterType="String">
 		<![CDATA[
 			select 
-		        id,
-		        blogtitle,
-		        logofile
-			from blog
-			where id = #{id}
+		        b.id,
+		        u.userName,
+		        b.blogtitle,
+		        b.logofile
+			from blog b ,users u
+			where b.id = #{id}
+			and u.id = b.id
 		]]>
 	</select>
 

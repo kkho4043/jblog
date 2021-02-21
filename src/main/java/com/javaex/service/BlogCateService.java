@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BlogMainDao;
-import com.javaex.dao.BlogWriteDao;
+import com.javaex.dao.BlogPostDao;
 import com.javaex.dao.BlogCateDao;
 import com.javaex.vo.CateVo;
 import com.javaex.vo.UserVo;
@@ -23,7 +23,7 @@ public class BlogCateService {
 	BlogCateDao blogCateDao;
 	
 	@Autowired
-	BlogWriteDao blogWriteDao;
+	BlogPostDao blogWriteDao;
 
 	
 

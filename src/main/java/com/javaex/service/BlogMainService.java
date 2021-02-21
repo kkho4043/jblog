@@ -1,5 +1,9 @@
 package com.javaex.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,32 +11,57 @@ import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BlogCateDao;
 import com.javaex.dao.BlogMainDao;
-import com.javaex.dao.BlogWriteDao;
+import com.javaex.dao.BlogPostDao;
 import com.javaex.vo.BlogVo;
+import com.javaex.vo.PostVo;
 import com.javaex.vo.UserVo;
 
 @Service("/BlogMainService")
 public class BlogMainService {
 
 	@Autowired
-	BlogMainDao blogDao;
+	BlogMainDao blogMainDao;
 
 	@Autowired
-	BlogCateDao cateDao;
+	BlogCateDao blogCateDao;
 
 	@Autowired
-	BlogWriteDao blogWriteDao;
+	BlogPostDao blogPostDao;
+	
+	
 
 	// 블로그 접속
+	
 	public BlogVo blogjoin(String id) {
-		return blogDao.joinBlog(id);
+		
+		return blogMainDao.joinBlog(id);
+	}
+	
+	public Map<String, Object> blogMainList(String id,int cateNo,int postNo) {
+		
+		Map<String, Object> bMap = new HashMap<String, Object>();
+		
+		bMap.put("blogVo", blogjoin(id));
+		
+		bMap.put("cList", blogCateDao.selectListCate(id));
+		
+		Map<String, Object> sMap = new HashMap<String, Object>();
+		sMap.put("id",id);
+		sMap.put("cateNo",cateNo);
+		sMap.put("postNo",postNo);
+		
+		bMap.put("pList", blogPostDao.selectListPost(sMap));
+		
+		bMap.put("postVo", blogPostDao.selectPost(sMap));
+		
+		return bMap;
 	}
 
 	// 내 블로그 어드민
 	public BlogVo blogadmin(String id, HttpSession session) {
 
 		if (equlsIdSession(id, session)) {
-			return blogDao.joinBlog(id);
+			return blogMainDao.joinBlog(id);
 		} else {
 			return null;
 		}

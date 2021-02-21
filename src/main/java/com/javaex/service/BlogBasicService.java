@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.BlogMainDao;
-import com.javaex.dao.BlogWriteDao;
+import com.javaex.dao.BlogPostDao;
 import com.javaex.dao.BlogCateDao;
 import com.javaex.vo.BlogVo;
 import com.javaex.vo.UserVo;
@@ -28,7 +28,7 @@ public class BlogBasicService {
 	BlogCateDao blogCateDao;
 	
 	@Autowired
-	BlogWriteDao blogWriteDao;
+	BlogPostDao blogWriteDao;
 
 
 	
@@ -69,7 +69,8 @@ public class BlogBasicService {
 					e.printStackTrace();
 				}
 			}
-			BlogVo blogvo = new BlogVo(id, blogTitle, saveName);
+			BlogVo blogvo = new BlogVo(id, blogTitle, saveName,"");
+			
 			return blogBasicDao.UpdateBasicBlog(blogvo);
 		} else {
 			return 0;

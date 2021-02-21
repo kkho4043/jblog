@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<!-- 유저 등록시 블로그 등록 -->
+	<insert id="insertpost" parameterType="PostVo">
+		<![CDATA[
+			insert into post
+			VALUES (
+					seq_post_no.nextval,
+					#{cateNo},
+					#{postTitle},
+					#{postContent},
+					sysdate
+	        		)
+		]]>
+	</insert>
+
+	<select id="selectListPost" parameterType="HashMap" resultType="PostVo">
+		<![CDATA[
+			 select
+			    p.postNo,
+			    p.cateNo,
+			    p.postTitle,
+			    p.postContent,
+			    TO_CHAR((p.regDate),'YYYY/MM/DD') regDate
+			 from post p,category cat
+		]]>
+
+		<choose>
+			<!-- 0이거나 null일때. -->
+			<when test="cateNo == null or cateNo == '' or cateNo == 0">
+				<![CDATA[
+					 ,(select
+	                   			cateno
+	              	  from category ca,(select 
+	                                         max(regDate) max 
+	                                	from category)cm
+	              	   					where ca.regDate = cm.max)c
+				 	where p.cateno = c.cateno 
+				]]>
+			</when>
+
+			<!--조건이 틀릴때. -->
+			<otherwise>
+				<![CDATA[
+			where p.cateNo = #{cateNo}
+				]]>
+			</otherwise>
+
+		</choose>
+		<!-- 마지막에 항상. -->
+			<![CDATA[
+			 and cat.cateNo = p.cateNo
+			 and cat.id = #{id}
+			 order by p.regdate desc
+			]]>
+
+	</select>
+
+	<select id="selectPost" parameterType="HashMap" resultType="PostVo">
+		<![CDATA[
+			 select
+			    p.postNo,
+			    p.cateNo,
+			    p.postTitle,
+			    p.postContent,
+			    TO_CHAR((p.regDate),'YYYY/MM/DD') regDate
+			 from post p,category c
+		]]>
+
+		<choose>
+			<!-- 0이거나 null일때. -->
+			<when test="postNo == null or postNo == '' or postNo == 0">
+				<![CDATA[
+				 	,(SELECT
+	                		max(regdate) max
+	              	  FROM (select 
+                            p.regdate
+                    		from post p
+                      where p.cateno = 
+                ]]>
+
+
+				<choose>
+					<when test="cateNo != null and cateNo != '' and cateNo != 0">
+					<![CDATA[
+						#{cateNo}
+					]]>
+					</when>
+					<otherwise>
+						<![CDATA[
+							(select
+									c.cateno
+							from category c,(select 
+	              							 		max(regdate) max 
+	               							 from category
+	               							 order by cateno)ca
+							where c.regdate = ca.max)
+						]]>
+					</otherwise>
+				</choose>
+				<![CDATA[
+					))pm
+					where pm.max = p.regdate
+				]]>
+			</when>
+
+			<!--조건이 틀릴때. -->
+			<otherwise>
+				<![CDATA[
+			where p.postNo = #{postNo}
+				]]>
+			</otherwise>
+
+		</choose>
+		<!--항상 -->
+		<![CDATA[
+			and p.cateno = c.cateno
+			and c.id = #{id}
+		]]>
+	</select>
+</mapper>

@@ -36,7 +36,7 @@
 	
 	</select>
 	
-	<!--마지막그-->
+	<!--마지막카테고리-->
 	<select id="selectcatelast" resultType="CateVo" parameterType="String">
 		<![CDATA[
 			select

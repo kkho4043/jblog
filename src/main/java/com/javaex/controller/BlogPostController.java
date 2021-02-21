@@ -15,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javaex.service.BlogWriteService;
+import com.javaex.service.BlogPostService;
 import com.javaex.vo.PostVo;
 
 @Controller
 @RequestMapping("/")
-public class BlogWriteController {
+public class BlogPostController {
 
 	@Autowired
-	private BlogWriteService blogWriteService;
+	private BlogPostService blogPostService;
 
 	// 블로그 글쓰기
 	@RequestMapping(value = "/{id}/admin/write", method = { RequestMethod.GET, RequestMethod.POST })
 	public String blogAdminwrite(@PathVariable("id") String id, HttpSession session, Model model) {
 		System.out.println("/blogController/" + id + "/write-----------------");
 
-		Map<String, Object> bMap = blogWriteService.blogwrite(id, session);
+		Map<String, Object> bMap = blogPostService.blogPost(id, session);
 
 		if (bMap != null) {
 			model.addAttribute("cList", bMap.get("cList"));
@@ -47,7 +47,7 @@ public class BlogWriteController {
 			@RequestParam("cateNo") int cateNo, @ModelAttribute("postVo") PostVo postVo) {
 		System.out.println("/blogController/" + id + "/write-----------------");
 
-		if (blogWriteService.blogwriteinsert(id, session, cateNo, postVo) == 1) {
+		if (blogPostService.blogPostinsert(id, session, cateNo, postVo) == 1) {
 
 			try {
 				id = URLEncoder.encode(id, "UTF-8");
