@@ -6,20 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.javaex.vo.BlogVo;
 
 @Repository
-public class BlogDao {
+public class BlogBasicDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	//유저 가입시 새 블로그
-	public int insertBlog(BlogVo blogVo) {
-		
-		return sqlSession.insert("blog.insertblog",blogVo);
-	}
-	
-	//블로그 접속
-	public BlogVo joinBlog(String id) {
-		return sqlSession.selectOne("blog.selectblog",id);
-	}
 	
 	public int UpdateBasicBlog(BlogVo blogVo) {
 		return sqlSession.update("blog.updateblog",blogVo);
