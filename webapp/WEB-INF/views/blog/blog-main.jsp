@@ -38,6 +38,7 @@
 						</c:forEach>
 					</ul>
 				</div>
+
 			</div>
 			<!-- profilecate_area -->
 

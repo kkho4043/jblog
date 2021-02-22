@@ -1,5 +1,7 @@
 package com.javaex.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,7 @@ public class UserService {
 		
 		blogVo.setId(userVo.getId());
 		blogVo.setBlogTitle(userVo.getId()+"의 블로그입니다.");
-		
+		blogVo.setLogoFile("/assets/images/spring-logo.jpg");
 		blogDao.insertBlog(blogVo); 
 		
 		return 1;
@@ -34,9 +36,11 @@ public class UserService {
 	}
 	
 	public UserVo login(UserVo userVo) {
-		
 		return userDao.selectUser(userVo);
-		
+	}
+	
+	public void logout(HttpSession session) {
+		session.removeAttribute("authUser");
 	}
 	
 }

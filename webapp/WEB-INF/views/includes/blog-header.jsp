@@ -17,7 +17,7 @@
 			<c:if test="${authUser.id == id}">
 				<li><a class="btn_s" href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">내블로그 관리</a></li>
 			</c:if>
-				<li><a class="btn_s" href="">로그아웃</a></li>
+				<li><a class="btn_s" href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 			</c:otherwise>
 			
 		</c:choose>

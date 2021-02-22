@@ -59,6 +59,16 @@ public class UserController {
 		return "user/joinSuccess";
 		
 	}
+	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout(HttpSession session) {
+		System.out.println("/UserController/logout-----------------");
+		
+		
+		userService.logout(session);
+			
+		return "redirect:/";
+		
+	}
 	
 	
 }
