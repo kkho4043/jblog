@@ -20,11 +20,20 @@
 		<div id="content" class="clearfix">
 			<div id="profilecate_area">
 				<div id="profile">
+					<c:choose>
+						<c:when test="${empty blogVo.logoFile}">
+							<img id="proImg" src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+						</c:when>
 
-					<!-- 기본이미지 -->
-					<img id="proImg" src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
-					<!-- 사용자업로드 이미지 -->
-					<%-- <img id="proImg" src=""> --%>
+
+						<c:otherwise>
+							
+							<img id="proImg" src="${pageContext.request.contextPath}/upload${blogVo.logoFile}">
+						</c:otherwise>
+					</c:choose>
+
+
+
 
 					<div id="nick">${blogVo.id}님</div>
 				</div>
@@ -58,10 +67,10 @@
 
 						<div id="post">${postVo.postContent}</div>
 					</c:when>
-					
+
 
 					<c:otherwise>
-						
+
 
 						<div id="postBox" class="clearfix">
 							<div id="postTitle" class="text-left">
@@ -89,7 +98,7 @@
 						<c:forEach items="${pList}" var="vo" varStatus="status">
 							<tr>
 								<td class="text-left"><a href="${pageContext.request.contextPath}/${blogVo.id}?cateNo=${vo.cateNo}&postNo=${vo.postNo}">${vo.postTitle}</a></td>
-								<td class="text-right"> ${vo.regDate}</td>
+								<td class="text-right">${vo.regDate}</td>
 							</tr>
 						</c:forEach>
 

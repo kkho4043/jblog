@@ -37,7 +37,21 @@
 			      		</tr>
 			      		<tr>
 			      			<td><label>로고이미지</label></td>
-			      			<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"> </td> 
+			      			<td class="text-left"> 
+			      			
+			      			<c:choose>
+								<c:when test="${empty blogVo.logoFile}">
+									<!-- 기본이미지 -->
+									<img id="proImg" src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+								</c:when>
+
+
+								<c:otherwise>
+									<!-- 사용자업로드 이미지 -->
+									<td class="text-left"><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>
+								</c:otherwise>
+							</c:choose>
+			      			</td> 
 			      		</tr>      		
 			      		<tr>
 			      			<td>&nbsp;</td>
